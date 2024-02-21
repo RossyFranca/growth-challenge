@@ -34,8 +34,6 @@ test.describe('Play Book administrator scenarios', () => {
         //Desfaz a edição
         await playbookPage.our_history_field.fill("3.1 Nossa história");
     
-      
     });
  
-
 });
