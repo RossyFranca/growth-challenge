@@ -1,24 +1,27 @@
 # growth-challenge
 ![Logo](./src/assets/logo.jpg)
 
-    Challenge code to growth machine
+<b>Challenge code to growth machine
 
 ### Clonar esse repositório
-- `git clone https://github.com/RossyFranca/growth-challenge.git`
+    git clone https://github.com/RossyFranca/growth-challenge.git
 
 ### Instalação
 
-- `npm install`
+    npm install
 
 ### Rodar os testes
     existem 2 scripts pré definidos:
+vai rodar todos os testes
+    
+    npm run test  
+vai rodar todos os testes smoke, ou seja os principaios cenários  
 
- - `npm run test`     - vai rodar todos os testes
-  - `npm run test-smoke`     - vai rodar todos os testes smoke, ou seja os principaios cenários
+    npm run test-smoke    
 
 
 ### Playwright
-    Os testes estão configurados para rodar no modo headless e em três navegadores
+Os testes estão configurados para rodar no modo headless e em três navegadores
 
 ### 🌐 Browsers
 
@@ -56,7 +59,18 @@
 
 ### Orientações para contribuição
 
-    Existem 2 branchs, main e develop. Para contribuir com este projeto é necessário criar uma nova branch a partir de develop com a nomenclatura feature-[nome da funcionalidade]. Foi utilizado as configurações do github para impedir push direto para a main branch. Outras configurações como análise e aprovação não foram utilizadas pela limitação de só haver um usuário até o momento.
+``Existem 2 branchs, main e develop. Para contribuir com este projeto é necessário criar uma nova branch a partir de develop com a nomenclatura feature-[nome da funcionalidade]. Foi utilizado as configurações do github para impedir push direto para a main branch. Outras configurações como análise e aprovação não foram utilizadas pela limitação de só haver um usuário até o momento.
+``
 
 
+
+
+
+
+
+    May the force be with us
+
+
+
+<b> By Rossywan França
 
