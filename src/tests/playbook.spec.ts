@@ -4,7 +4,7 @@ import { MaterialsPage } from '../pages/materialspage';
 
 var loginPage: LoginPage;
 var materialsPage: MaterialsPage;
-test.describe.only('Play Book scenarios', () => {
+test.describe('Play Book scenarios', () => {
 
     test.beforeEach(async ({ page }) => {
         loginPage = new LoginPage(page)
