@@ -1,41 +1,45 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/loginpage';
+import { MaterialsPage } from '../pages/materialspage';
 
-
-test.describe('Login Tests', () => {
-
+var loginPage:LoginPage;
+var materialsPage:MaterialsPage;
+test.describe('Login scenarios', () => {
+   
     test.beforeEach(async ({ page }) => {
-        const loginpage = new LoginPage(page);
-        await loginpage.gotoLoginPage();
+        loginPage = new LoginPage(page);
+        await loginPage.gotoLoginPage();
     });
 
     test('login with success @smoke', async ({ page }) => {
 
-        await page.getByPlaceholder('E-mail').fill('usuariodaempresa3333@gmail.com');
-        await page.getByPlaceholder('Senha').fill('Senha.123');
-        await page.getByRole('button', { name: 'Entrar' }).click();
-        await page.waitForURL('**/materials')
+        await loginPage.username_textbox.fill('usuariodaempresa3333@gmail.com');
+        await loginPage.password_textbox.fill('Senha.123');
+        await loginPage.login_submit_btn.click();
+        await loginPage.page.waitForURL('**/materials')
 
-        expect(page.url()).toBe('https://client.stg.growthstation.app/materials');
+        expect(loginPage.page.url()).toBe('https://client.stg.growthstation.app/materials');
     });
 
     test('logout', async ({ page }) => {
-        await page.getByPlaceholder('E-mail').fill('usuariodaempresa3333@gmail.com');
-        await page.getByPlaceholder('Senha').fill('Senha.123');
-        await page.getByRole('button', { name: 'Entrar' }).click();
+        await loginPage.username_textbox.fill('usuariodaempresa3333@gmail.com');
+        await loginPage.password_textbox.fill('Senha.123');
+        await loginPage.login_submit_btn.click();
+        await loginPage.page.waitForURL('**/materials')
+        
+        materialsPage = new MaterialsPage(page);
+        await materialsPage.user_menu.click();
+        await materialsPage.logout_btn.click();
+        await materialsPage.page.waitForURL('**/login')
 
-        await page.getByTitle('Usuario').click();
-        await page.locator('[href="/logout"]').click();
-        await page.waitForURL('**/login')
-
-        expect(page.url()).toBe('https://client.stg.growthstation.app/login');
+        expect(loginPage.page.url()).toBe('https://client.stg.growthstation.app/login');
 
     });
     test('wrong password', async ({ page }) => {
 
-        await page.getByPlaceholder('E-mail').fill('usuariodaempresa3333@gmail.com');
-        await page.getByPlaceholder('Senha').fill('Senha.ERRADA');
-        await page.getByRole('button', { name: 'Entrar' }).click();
+        await loginPage.username_textbox.fill('usuariodaempresa3333@gmail.com');
+        await loginPage.password_textbox.fill('Senha.ERRADA');
+        await loginPage.login_submit_btn.click();
 
         const message_error = await page.$eval('.text-left.font-medium.text-xs.text-red-500.w-full', (element) => element.textContent);
 
@@ -44,9 +48,9 @@ test.describe('Login Tests', () => {
 
     test('wrong user', async ({ page }) => {
 
-        await page.getByPlaceholder('E-mail').fill('invalid_user@gmail.com');
-        await page.getByPlaceholder('Senha').fill('Senha.123');
-        await page.getByRole('button', { name: 'Entrar' }).click();
+        await loginPage.username_textbox.fill('invalid_user@gmail.com');
+        await loginPage.password_textbox.fill('Senha.123');
+        await loginPage.login_submit_btn.click();
 
         const message_error = await page.$eval('.text-left.font-medium.text-xs.text-red-500.w-full', (element) => element.textContent);
 
@@ -56,7 +60,7 @@ test.describe('Login Tests', () => {
     test('empty fields', async ({page})=>{
 
        
-        await page.getByRole('button', { name: 'Entrar' }).click();
+        await loginPage.login_submit_btn.click();
 
         const message_error = await page.$eval('.text-left.font-medium.text-xs.text-red-500.w-full', (element) => element.textContent);
 
@@ -66,14 +70,14 @@ test.describe('Login Tests', () => {
     test('is not a client @smoke', async ({ page }) => {
 
        
-        const numeroDeAbasAntesDoClique = (await page.context().pages()).length;
-        await page.getByText("Não é cliente?").click();
+        const numeroDeAbasAntesDoClique = (loginPage.page.context().pages()).length;
+        await loginPage.isnot_client_btn.click();
  
     
-        const numeroDeAbasAposOClique = (await page.context().pages()).length;
+        const numeroDeAbasAposOClique = (loginPage.page.context().pages()).length;
         expect(numeroDeAbasAposOClique).toBe(numeroDeAbasAntesDoClique + 1);
     
-        const novasAbas = page.context().pages();
+        const novasAbas = loginPage.page.context().pages();
         const novaAba = novasAbas[numeroDeAbasAntesDoClique];
         
         await novaAba.waitForLoadState();
@@ -83,8 +87,8 @@ test.describe('Login Tests', () => {
 
     test('forgot password', async ({page})=>{
 
-        await page.locator('[href="/forgotPass"]').click();
-        await page.waitForLoadState();
+        await loginPage.forgot_password_btn.click();
+        await loginPage.page.waitForLoadState();
 
         expect(page.url()).toBe('https://client.stg.growthstation.app/forgotPass')
 
