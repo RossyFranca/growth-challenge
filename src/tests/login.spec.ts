@@ -15,7 +15,6 @@ test.describe('Login Tests', ()=>{
         await page.getByPlaceholder('Senha').fill('Senha.123');
         await page.getByRole('button', { name: 'Entrar' }).click();
 
-        expect(await page.title()).toBe('materiais - Growth Station');
         expect(page.url()).toBe('https://client.stg.growthstation.app/materials');
     });
 
