@@ -1,0 +1,33 @@
+name: CI develop
+
+on:
+  pull_request: 
+    branches: [develop]
+
+jobs:
+    continuous-integration-to-develop:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 20.x
+            - name: Install dependencies
+              run: npm ci
+            - name: Install Playwright Browsers
+              run: npx playwright install --with-deps
+            - name: Run Playwright tests
+              run: npx playwright test
+            - name: Aprovar ou Rejeitar Pull Request
+              run: |
+                if [ $? -eq 0 ]; then
+                  echo "Testes e build bem-sucedidos!"
+                else
+                  echo "Testes ou build falhou. Rejeitando o pull request."
+                  exit 1
+                fi  
+            
+
+
+
+  

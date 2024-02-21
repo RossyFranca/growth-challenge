@@ -19,12 +19,23 @@ test.describe('Play Book administrator scenarios', () => {
         loginPage = new LoginPage(page)
         await loginPage.login();
         playbookPage = new PlayBookPage(page);
-        playbookPage.gotoPlayBook();
+        await playbookPage.gotoPlayBook();
     });
-    test('Playbook editing by an administrator', async ({ page }) => {
+    test('Playbook edit mode by an administrator @smoke', async ({ page }) => {
+
+        await playbookPage.menu_our_history_field.click();
+
+        expect(playbookPage.edit_mod_btn).toBeVisible();
+        await playbookPage.edit_mod_btn.click();
+        await playbookPage.our_history_field.fill("3.1 Nossa história editada");
+       
+        expect(await playbookPage.our_history_field.textContent()).toBe("3.1 Nossa história editada");
         
-
-
+        //Desfaz a edição
+        await playbookPage.our_history_field.fill("3.1 Nossa história");
+    
+      
     });
+ 
 
 });
