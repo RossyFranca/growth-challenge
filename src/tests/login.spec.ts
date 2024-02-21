@@ -53,6 +53,16 @@ test.describe('Login Tests', () => {
         expect(message_error).toBe("*E-mail ou senha inválidos");
     });
 
+    test('empty fields', async ({page})=>{
+
+       
+        await page.getByRole('button', { name: 'Entrar' }).click();
+
+        const message_error = await page.$eval('.text-left.font-medium.text-xs.text-red-500.w-full', (element) => element.textContent);
+
+        expect(message_error).toBe("*E-mail ou senha inválidos");
+    });
+
     test('is not a client @smoke', async ({ page }) => {
 
        
@@ -70,6 +80,15 @@ test.describe('Login Tests', () => {
     
         expect(novaAba.url()).toBe('https://www.growthmachine.com.br/');
     });
-    
+
+    test('forgot password', async ({page})=>{
+
+        await page.locator('[href="/forgotPass"]').click();
+        await page.waitForLoadState();
+
+        expect(page.url()).toBe('https://client.stg.growthstation.app/forgotPass')
+
+    });
+
 
 });
