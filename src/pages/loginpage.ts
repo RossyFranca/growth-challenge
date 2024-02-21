@@ -3,14 +3,12 @@ import { Locator, Page } from '@playwright/test';
 export class LoginPage {
     page: Page;
 
-
     password_textbox: Locator;
     login_submit_btn: Locator;
     forgot_password_btn: Locator;
     isnot_client_btn: Locator;
     message_error: Locator;
     username_textbox: Locator;
-
 
     constructor(page: Page) {
     

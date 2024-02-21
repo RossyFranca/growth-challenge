@@ -13,7 +13,6 @@ export class PlayBookPage{
     this.menu_our_history_field = page.locator('//*[@id="__next"]/div/div/div/div[1]/div[2]/div[3]/div/div[1]/button/p');
    }
 
-
    async gotoPlayBook(){
     await this.page.goto("https://client.stg.growthstation.app/playbook");
     await this.page.waitForLoadState();

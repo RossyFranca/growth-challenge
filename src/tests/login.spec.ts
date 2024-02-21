@@ -4,6 +4,13 @@ import { MaterialsPage } from '../pages/materialspage';
 
 var loginPage:LoginPage;
 var materialsPage:MaterialsPage;
+
+/**
+ * Para o Login, os testes devem cobrir diferentes cenários, incluindo mas
+    não se limitando a: sucesso no login, falhas de autenticação
+    (credenciais incorretas), campos obrigatórios vazios e restrições de
+    formato para o campo de e-mail.
+ */
 test.describe('Login scenarios', () => {
    
     test.beforeEach(async ({ page }) => {
