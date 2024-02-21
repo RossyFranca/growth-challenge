@@ -41,9 +41,9 @@ test.describe('Login scenarios', () => {
         await loginPage.password_textbox.fill('Senha.ERRADA');
         await loginPage.login_submit_btn.click();
 
-        const message_error = await page.$eval('.text-left.font-medium.text-xs.text-red-500.w-full', (element) => element.textContent);
-
-        expect(message_error).toBe("*E-mail ou senha inválidos");
+        //const message_error = await page.$eval('.text-left.font-medium.text-xs.text-red-500.w-full', (element) => element.textContent);
+        const message_error = await page.locator('.text-left.font-medium.text-xs.text-red-500.w-full').textContent();
+        expect(message_error).toBe('*E-mail ou senha inválidos');
     });
 
     test('wrong user', async ({ page }) => {
@@ -51,10 +51,12 @@ test.describe('Login scenarios', () => {
         await loginPage.username_textbox.fill('invalid_user@gmail.com');
         await loginPage.password_textbox.fill('Senha.123');
         await loginPage.login_submit_btn.click();
+        await loginPage.page.waitForLoadState()
 
-        const message_error = await page.$eval('.text-left.font-medium.text-xs.text-red-500.w-full', (element) => element.textContent);
+        //const message_error = await page.$eval('.text-left.font-medium.text-xs.text-red-500.w-full', (element) => element.textContent);
+        const message_error = await page.locator('.text-left.font-medium.text-xs.text-red-500.w-full').textContent();
 
-        expect(message_error).toBe("*E-mail ou senha inválidos");
+        expect(message_error).toBe('*E-mail ou senha inválidos');
     });
 
     test('empty fields', async ({page})=>{
@@ -62,8 +64,8 @@ test.describe('Login scenarios', () => {
        
         await loginPage.login_submit_btn.click();
 
-        const message_error = await page.$eval('.text-left.font-medium.text-xs.text-red-500.w-full', (element) => element.textContent);
-
+        const message_error = await page.locator('.text-left.font-medium.text-xs.text-red-500.w-full').textContent();
+        await loginPage.page.waitForLoadState()
         expect(message_error).toBe("*E-mail ou senha inválidos");
     });
 
