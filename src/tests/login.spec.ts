@@ -14,6 +14,7 @@ test.describe('Login Tests', ()=>{
         await page.getByPlaceholder('E-mail').fill('usuariodaempresa3333@gmail.com');
         await page.getByPlaceholder('Senha').fill('Senha.123');
         await page.getByRole('button', { name: 'Entrar' }).click();
+        await page.waitForURL('**/materials')
 
         expect(page.url()).toBe('https://client.stg.growthstation.app/materials');
     });
@@ -23,10 +24,9 @@ test.describe('Login Tests', ()=>{
         await page.getByPlaceholder('Senha').fill('Senha.123');
         await page.getByRole('button', { name: 'Entrar' }).click();
 
-        
-
         await page.getByTitle('Usuario').click();
         await page.locator('[href="/logout"]').click();
+        await page.waitForURL('**/login')
 
         expect(page.url()).toBe('https://client.stg.growthstation.app/login');
 
