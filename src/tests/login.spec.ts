@@ -19,7 +19,7 @@ test.describe('Login Tests', ()=>{
         expect(page.url()).toBe('https://client.stg.growthstation.app/materials');
     });
 
-    test.only('logout', async ({page})=>{
+    test('logout', async ({page})=>{
         await page.getByPlaceholder('E-mail').fill('usuariodaempresa3333@gmail.com');
         await page.getByPlaceholder('Senha').fill('Senha.123');
         await page.getByRole('button', { name: 'Entrar' }).click();
